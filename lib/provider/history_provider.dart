@@ -1,14 +1,21 @@
-// file: history_provider.dart
+import 'package:flutter/foundation.dart';
+import 'package:rental_camera/screens/product_camera.dart';
 
-import 'package:flutter/material.dart';
 
-class HistoryProvider extends ChangeNotifier {
-  final List<Map<String, String>> _historyItems = [];
+class HistoryProvider with ChangeNotifier {
+  final List<CameraProduct> _historyItems = [];
 
-  List<Map<String, String>> get historyItems => _historyItems;
+  List<CameraProduct> get historyItems => _historyItems;
 
-  void addHistoryItem(Map<String, String> item) {
-    _historyItems.add(item);
+  void addHistory(List<CameraProduct> items) {
+    _historyItems.addAll(items);
     notifyListeners();
   }
+
+  void clearHistory() {
+    _historyItems.clear();
+    notifyListeners();
+  }
+
+  void addHistoryItem(Map<String, String> map) {}
 }

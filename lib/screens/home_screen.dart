@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             // Camera Grid
             Expanded(
-              child: CameraGrid(category: selectedCategory, filteredCameras: [],),
+              child: CameraGrid(category: selectedCategory, filteredCameras: [], onWishlistTap: (cameraId) {  },),
             ),
           ],
         ),

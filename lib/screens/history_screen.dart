@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rental_camera/screens/product_camera.dart';
 import '../provider/history_provider.dart';
+
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -35,7 +37,7 @@ class HistoryScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               itemCount: historyItems.length,
               itemBuilder: (context, index) {
-                final rentalData = historyItems[index];
+                final CameraProduct rentalData = historyItems[index];
 
                 return Card(
                   shape: RoundedRectangleBorder(
@@ -44,28 +46,28 @@ class HistoryScreen extends StatelessWidget {
                   color: Colors.red[100],
                   margin: const EdgeInsets.only(bottom: 16),
                   child: ListTile(
-                    leading: Icon(
-                      Icons.camera_alt,
-                      color: Colors.grey[850],
-                      size: 32,
+                    leading: Image.network(
+                      rentalData.imageUrl, // Gambar produk
+                      width: 50,
+                      fit: BoxFit.cover,
                     ),
                     title: Text(
-                      rentalData["title"]!,
+                      rentalData.name, // Nama kamera
                       style: TextStyle(
                         color: Colors.grey[850],
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     subtitle: Text(
-                      'Tanggal: ${rentalData["date"]}',
+                      'Harga: Rp ${rentalData.price}/hari', // Harga kamera
                       style: TextStyle(
                         color: Colors.grey[850],
                       ),
                     ),
                     trailing: Text(
-                      rentalData["status"]!,
-                      style: TextStyle(
-                        color: rentalData["status"] == "Selesai" ? Colors.green : Colors.orange,
+                      'Selesai', // Status default
+                      style: const TextStyle(
+                        color: Colors.green,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

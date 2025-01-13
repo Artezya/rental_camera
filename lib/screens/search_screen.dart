@@ -200,7 +200,7 @@ class _SearchScreenState extends State<SearchScreen> {
       MaterialPageRoute(
         builder: (context) => CameraGrid(
           category: 'Semua',
-          filteredCameras: _filteredCameras,
+          filteredCameras: _filteredCameras, onWishlistTap: (cameraId) {  },
         ),
       ),
     );

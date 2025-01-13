@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/camera_grid.dart';
+import 'package:rental_camera/screens/product_camera.dart';
 import '../provider/cart_provider.dart';
 
 class CameraDetailPage extends StatelessWidget {
@@ -29,46 +29,45 @@ class CameraDetailPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image.network(
-              //   camera['image'],
-              //   height: 250,
-              //   width: double.infinity,
-              //   fit: BoxFit.cover,
-              // ),
+              Image.network(
+                cameraProduct.imageUrl, // Menggunakan imageUrl dari CameraProduct
+                height: 250,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
               const SizedBox(height: 16),
               Text(
-                // cameraProduct['name'],
-                cameraProduct.category,
+                cameraProduct.name, // Nama produk
                 style: const TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              // const SizedBox(height: 8),
-              // Text(
-              //   'Kategori: ${camera['category']}',
-              //   style: const TextStyle(fontSize: 16, color: Colors.grey),
-              // ),
-              // const SizedBox(height: 8),
-              // Row(
-              //   children: [
-              //     const Icon(Icons.star, color: Colors.amber, size: 20),
-              //     const SizedBox(width: 4),
-              //     Text(
-              //       camera['rating'].toString(),
-              //       style: const TextStyle(fontSize: 16),
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(height: 16),
-              // Text(
-              //   'Harga: Rp ${camera['price']}/hari',
-              //   style: const TextStyle(
-              //     fontSize: 20,
-              //     fontWeight: FontWeight.bold,
-              //     color: Colors.pink,
-              //   ),
-              // ),
+              const SizedBox(height: 8),
+              Text(
+                'Kategori: ${cameraProduct.category}', // Kategori produk
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.amber, size: 20),
+                  const SizedBox(width: 4),
+                  Text(
+                    cameraProduct.rating.toString(), // Rating produk
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Harga: Rp ${cameraProduct.price}/hari', // Harga produk
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                ),
+              ),
               const SizedBox(height: 16),
               Divider(color: Colors.grey[300]),
               const SizedBox(height: 8),
@@ -80,12 +79,13 @@ class CameraDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              // _buildSpecificationList(camera['specifications'] as List<Map<String, String>>?),
+              _buildSpecificationList(cameraProduct.specifications), // Menampilkan spesifikasi
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
                   // Tambahkan kamera ke keranjang
-                  // Provider.of<CartProvider>(context, listen: false).addToCart(camera);
+                  Provider.of<CartProvider>(context, listen: false)
+                      .addToCart(cameraProduct);
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Ditambahkan ke keranjang')),

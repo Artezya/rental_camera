@@ -5,7 +5,8 @@ import 'package:rental_camera/models/cart_page.dart';
 import 'package:rental_camera/screens/login/login_screen.dart';
 import 'package:rental_camera/provider/history_provider.dart';
 import 'package:rental_camera/screens/home_screen.dart';
-import 'package:rental_camera/screens/camera_detail_page.dart'; 
+import 'package:rental_camera/screens/camera_detail_page.dart';
+import 'package:rental_camera/screens/product_camera.dart';
 
 void main() {
   runApp(
@@ -20,7 +21,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,19 +33,22 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: const LoginScreen(),
-      routes: {
-        '/home': (context) => const HomeScreen(),
-        '/cart': (context) => const CartPage(),
+     routes: {
+  '/home': (context) => const HomeScreen(),
+  '/cart': (context) => const CartPage(),
+  '/login': (context) => const LoginScreen(), // Added for named navigation
+
       },
-      // onGenerateRoute: (settings) {
-      //   if (settings.name == '/camera-detail') {
-      //     final camera = settings.arguments as Map<String, dynamic>;
-      //     return MaterialPageRoute(
-      //       builder: (context) => CameraDetailPage(camera: camera, product: {},),
-      //     );
-      //   }
-      //   return null;
-      // },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/camera-detail') {
+          // Pastikan arguments adalah objek CameraProduct
+          final cameraProduct = settings.arguments as CameraProduct;
+          return MaterialPageRoute(
+            builder: (context) => CameraDetailPage(cameraProduct: cameraProduct),
+          );
+        }
+        return null;
+      },
     );
   }
 }

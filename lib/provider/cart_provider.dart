@@ -1,32 +1,34 @@
-// file: cart_provider.dart
 import 'package:flutter/foundation.dart';
+import 'package:rental_camera/screens/product_camera.dart';
+
 
 class CartProvider with ChangeNotifier {
-  final List<Map<String, dynamic>> _cartItems = [];
+  final List<CameraProduct> _cartItems = []; // Menggunakan CameraProduct
 
-  List<Map<String, dynamic>> get cartItems => _cartItems;
+  List<CameraProduct> get cartItems => _cartItems;
 
-  void addToCart(Map<String, dynamic> item) {
-    _cartItems.add(item);
+  // Tambahkan produk ke keranjang
+  void addToCart(CameraProduct product) {
+    _cartItems.add(product);
     notifyListeners();
   }
 
-  void removeFromCart(Map<String, dynamic> item) {
-    _cartItems.remove(item);
+  // Hapus produk dari keranjang
+  void removeFromCart(CameraProduct product) {
+    _cartItems.remove(product);
     notifyListeners();
   }
 
-double getTotalPrice() {
-  double total = 0;
-  for (var item in _cartItems) {
-    // Konversi price dari String ke double jika diperlukan
-    double itemPrice = item['price'] is String ? double.parse(item['price']) : item['price'];
-    total += itemPrice;
+  // Hitung total harga dari keranjang
+  double getTotalPrice() {
+    double total = 0.0;
+    for (var item in _cartItems) {
+      total += item.price; // Menggunakan properti price dari CameraProduct
+    }
+    return total;
   }
-  return total;
-}
 
-
+  // Kosongkan keranjang
   void clearCart() {
     _cartItems.clear();
     notifyListeners();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../main_screen.dart'; 
-import 'signup_screen.dart'; 
+import '../main_screen.dart';
+import 'signup_screen.dart';
+import '../admin_screen.dart'; // Import AdminScreen
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,10 +21,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login() {
     if (_formKey.currentState?.validate() ?? false) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MainScreen()),
-      );
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+
+      // Periksa jika admin
+      if (email == 'admin@gmail.com' && password == 'admin') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const AdminScreen()),
+        );
+      } else {
+        // Jika bukan admin, arahkan ke MainScreen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MainScreen()),
+        );
+      }
     }
   }
 
@@ -115,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
-                      backgroundColor:Colors.pinkAccent[700],
+                      backgroundColor: Colors.pinkAccent[700],
                       elevation: 8,
                     ),
                     child: const Text(
@@ -136,7 +149,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: const Text(
                       'Belum punya akun? Daftar di sini',
-                      style: TextStyle(color: Color.fromARGB(255, 130, 143, 216)),
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 130, 143, 216)),
                     ),
                   ),
                 ],

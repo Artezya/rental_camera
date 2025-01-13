@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'login/login_screen.dart';
 import 'edit_profile_screen.dart';
 import 'add_address_screen.dart';
+import 'payment_methods_screen.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -122,7 +124,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _buildMenuItem(
               icon: Icons.payment_outlined,
               title: 'Metode Pembayaran',
-              onTap: () {},
+              onTap: () {Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PaymentMethodsScreen(),
+      ),
+    );},
             ),
             _buildMenuItem(
               icon: Icons.settings_outlined,
